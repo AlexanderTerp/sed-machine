@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SED Machine</title>
+    <link href="sed stylesheet.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1 id="title1">SED Machine</h1>                                                                          <!-- Title -->
+    <p id="acronym"> <span>S</span>ymmetric <span>E</span>ncryption-<span>D</span>ecryption Machine </p>      <!-- Subtitle explaining the acronym. -->
+
+    <br>
+    <div id="keyDiv">                                                                                         <!-- Area where the user sees the key and can enter a key. -->
+      <textarea name="keyArea" id="keyInput" rows="1" cols="1"></textarea>
+    </div>
+
+    <div id="generateDiv"><button type="button" onclick="generateInKeyArea()">Generate</button></div>         <!-- Button for generating keys. -->
+
+    <form id="endeForm">                                                                                      <!-- Radio buttons to chose between encryption and decryption modes. -->
+      <input id="encryptButton" type="radio" name="endeSelection" value="encrypt">Encrypt
+      <input id="decryptButton" type="radio" name="endeSelection" value="decrypt">Decrypt
+    </form>
+
+    <br>
+    <div id="translateDiv"><button type="button" onclick="execute()">Execute!</button></div>                  <!-- Button for performing the encryption/decryption. -->
+
+    <br>
+    <div id="textBoxesDiv">                                                                                   <!-- Div for the text input and output boxes. -->
+      <textarea name="textInput" id="textInput" rows="1" cols="1">Input</textarea>
+      <textarea name="textOutput" id="textOutput" rows="1" cols="1">Output</textarea>
+    </div>
+    <script>
+    function execute() {
+      // 	Provide the program with a list of characters to use in the generation of the key. used to get' and " to be part of the string as well.
+      var characters = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890!@#$%^&*()_+.,;<>/:=|\\[]{}`~?-\'\" ";
+      Array.prototype.checkLocation = function(item) {	// 	Creates a method that checks for the location of the argument 'item' in the array on which the method is used.
+      	for (i=0;i<this.length;i++) {
+      		if (item == this[i]) {
+      			return i;														//	 Returns the number in the array in which the item is found.
+      			break;
+      		}
+      	}
+      	return false;
+      }
+
+      String.prototype.checkLocation = function(item) {	// 	Creates a method that checks for the location of the argument 'item' in the string on which the method is used.
+      	for (i=0;i<this.length;i++) {
+      		if (item == this[i]) {
+      			return i;														// 	Returns the number in the string in which the item is found.
+      			break;
+      		}
+      	}
+      	return false;
+      }
+
+      String.prototype.scramble = function() { 	//	Creates a string method that allows for scrambling the string it's used on.
+      	var scrambled = [];											//	Predefines a variable 'scrambled' to be an array in order for .push() to work.
+      	var length = this.length								// 	Defines a variable 'length' to work with the for loop, as it doesn't work to merely do this.length, since it changes.
+      	var this1 = this												// 	Defines a variable 'this1' as we can't redefine 'this' (which is done a few lines further).
+      	for (i=0;i<length;i++)									// 	For loop that goes for as long as the original length of 'this'.
+      	{
+      		rand = Math.floor(Math.random() * (this1.length))	// 	Generates a random number between 0 to the length that 'this' currently is.
+      		scrambled.push(this1[rand]);					// 	Pushes the randomly chosen character from 'this' into 'scrambled'.
+      		this1 = this1.replace(this1[rand], "")	// 	Removes the chosen letter from 'this'.
+      	}
+      	scrambled = scrambled.join("")					// 	Turns the 'scrambled' array into a string.
+      	return scrambled												// 	Returns the string
+      }
+
+      String.prototype.encrypt = function() {		//	Creates a method for strings that encrypts them using a previously imported/generated key. To be used primarily on the text being encrypted.
+      	this1 = this.split("")									// 	Creates another variable 'this1' which is the array-version of the string on which the method is being used.
+      	for (j=0;j<this.length;j++) {						// 	For loop that goes through the variable 'this1' and replaces the characters accordingly with the key.
+      				this1.splice(j, 1, key[characters.checkLocation(this1[j])])	// 	Look below the line for the full comment.
+      			 	/* 	Looks at the first character in the array being encrypted and uses the 'checkLocation' method to return its number location in the 'characters' array.
+      						It then replaces that characters in the 'this1' array with corresponding character that occupies the same number location in the 'key' array.	*/
+      	}
+      	this1 = this1.join("")
+      	return this1
+      }
+
+      String.prototype.decrypt = function() {		//	Creates a method for strings that decrypts them using a previously imported/generated key. To be used primarily on the text being decrypted.
+      	this1 = this.split("")									// 	Creates another variable 'this1' which is the array-version of the string on which the method is being used.
+      	for (j=0;j<this.length;j++) {						// 	For loop that goes through the variable 'this1' and replaces the characters accordingly with the 'characters' array.
+      				this1.splice(j, 1, characters[key.checkLocation(this1[j])])	// 	Look in the 'encrypt' method for a similar explanation. This line does the opposite of that.
+      	}
+      	this1 = this1.join("")
+      	return this1
+      }
+
+      if (document.getElementById("encryptButton").checked) {
+        var key = document.getElementById("keyInput").value;
+        var text = document.getElementById("textInput").value;
+        document.getElementById("textOutput").value = text.encrypt();
+      }
+      else if (document.getElementById("decryptButton").checked) {
+        var key = document.getElementById("keyInput").value;
+        var text = document.getElementById("textInput").value;
+        document.getElementById("textOutput").value = text.decrypt();
+      }
+    }
+    </script>
+
+    <script>
+    function generateInKeyArea() {
+      String.prototype.scramble = function() { 	//	Creates a string method that allows for scrambling the string it's used on.
+      	var scrambled = [];											//	Predefines a variable 'scrambled' to be an array in order for .push() to work.
+      	var length = this.length								// 	Defines a variable 'length' to work with the for loop, as it doesn't work to merely do this.length, since it changes.
+      	var this1 = this												// 	Defines a variable 'this1' as we can't redefine 'this' (which is done a few lines further).
+      	for (i=0;i<length;i++)									// 	For loop that goes for as long as the original length of 'this'.
+      	{
+      		rand = Math.floor(Math.random() * (this1.length))	// 	Generates a random number between 0 to the length that 'this' currently is.
+      		scrambled.push(this1[rand]);					// 	Pushes the randomly chosen character from 'this' into 'scrambled'.
+      		this1 = this1.replace(this1[rand], "")	// 	Removes the chosen letter from 'this'.
+      	}
+      	scrambled = scrambled.join("")					// 	Turns the 'scrambled' array into a string.
+      	return scrambled												// 	Returns the string
+      }
+      var characters = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890!@#$%^&*()_+.,;<>/:=|\\[]{}`~?-\'\" ";
+      document.getElementById("keyInput").value = characters.scramble();
+    }
+    </script>
+  </body>
+  <!-- <footer>
+    <p> Created by Alexander Terp </p>
+    <p> Copyright 2015, All Rights Reserved. </p>
+  </footer> -->
+</html>
