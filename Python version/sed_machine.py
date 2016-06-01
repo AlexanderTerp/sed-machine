@@ -46,6 +46,7 @@ def decrypt():
 	message_text.insert(1.0, decrypted)
 
 root = Tk()
+
 # Sets window size
 root.geometry('600x400')
 
