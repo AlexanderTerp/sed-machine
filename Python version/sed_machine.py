@@ -53,20 +53,22 @@ root.geometry('600x350')
 root.resizable(1,0)
 # Set icon
 root.iconbitmap('icon.ico')
+# Change background color to a light blue.
+root.configure(bg="#b3e7ff")
 
 app = Window(root)
 
 # Places the top, middle, and bottom frames.
 # Top frame contains generate key, encrypt, and decrypt buttons.
-top_frame = Frame(root)
+top_frame = Frame(root, bg="#b3e7ff")
 top_frame.pack(side='top')
 
 # Middle frame contains the key_entry field.
-mid_frame = Frame(root)
+mid_frame = Frame(root, bg="#b3e7ff")
 mid_frame.pack()
 
 # Contains the text box for messages.
-bottom_frame = Frame(root)
+bottom_frame = Frame(root, bg="#b3e7ff")
 bottom_frame.pack(side='bottom', fill='x')
 
 # Creates and places the Generate Key button.
@@ -82,12 +84,12 @@ decrypt_b = Button(mid_frame, text='Decrypt!', command=decrypt)
 decrypt_b.grid(row=1, column=1, padx=20, pady=20)
 
 # Creates and places the field for the key.
-key_entry = Entry(top_frame, width=98)
+key_entry = Entry(top_frame, bg='#e6f7ff', width=98)
 key_entry.grid(pady=20)
 
 # Creates and places the text box for storing encrypted and un/decrypted
 # messages.
-message_text = Text(bottom_frame, height=12)
+message_text = Text(bottom_frame, height=12, bg='#e6f7ff')
 message_text.pack(expand=1, fill='x')
 
 # Loops the window indefinitely.
