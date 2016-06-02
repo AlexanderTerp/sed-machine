@@ -1,6 +1,6 @@
 #------------------------------------------------------------------------------
 # Original author:  Terpal47
-# Creation date:    26/05/2016
+# Creation date:    02/06/2016
 # Description:      Encrypts and decrypts messages based on a symmetric-key
 #                   encryption system. Works via a GUI written using Tkinter.
 #------------------------------------------------------------------------------

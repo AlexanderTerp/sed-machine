@@ -1,6 +1,6 @@
 #------------------------------------------------------------------------------
 # Original author:  Terpal47
-# Creation date:    1/06/2016
+# Creation date:    26/05/2016
 # Description:      Contains the functions that generates keys and encrypts and
 #                   decrypts messages.
 #------------------------------------------------------------------------------
