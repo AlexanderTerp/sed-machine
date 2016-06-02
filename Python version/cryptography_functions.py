@@ -8,7 +8,7 @@
 import os
 from random import choice
 
-CHARACTERS = """ AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890!@#$%^&*()_+.,;<>/:=|\\[]{}`~?-\'\" """
+CHARACTERS = """AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890!@#$%^&*()_+.,;<>/:=|\\[]{}`~?-\'\" """
 
 def generate_key():
     key = []
